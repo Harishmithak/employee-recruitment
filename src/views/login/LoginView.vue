@@ -38,8 +38,7 @@ export default {
     ...mapState(['isLoggedIn', 'userEmail']),
   },
   methods: {
-    ...mapActions(['performLogin', 'performLogout']), // Updated action names
-
+    ...mapActions(['performLogin', 'performLogout']),
     performLogin() {
       const userData = {
         email: this.email,

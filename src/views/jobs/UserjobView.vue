@@ -7,7 +7,7 @@
           <th>Company Name</th>
           <th>Job Position</th>
           <th>Job Description</th>
-        
+       
         </tr>
       </thead>
       <tbody>
@@ -15,7 +15,7 @@
           <td>{{ job.company_name }}</td>
           <td>{{ job.job_position }}</td>
           <td>{{ job.job_description }}</td>
-       
+        
         </tr>
       </tbody>
     </table>
@@ -23,35 +23,24 @@
 </template>
 <script>
 
+
 import axios from 'axios';
-import { mapState } from 'vuex'; 
 
 export default {
-  computed: {
-    ...mapState(['userEmail']), 
-  },
   data() {
     return {
       jobs: [], 
     };
   },
   mounted() {
-   
+
     this.fetchJobs();
   },
   methods: {
     fetchJobs() {
-   
-      const loggedInEmail = this.userEmail; 
-
-     
-      axios.get('http://127.0.0.1:8000/api/jobs', {
-        params: {
-          company_email: loggedInEmail,
-        },
-      })
+      axios.get('http://127.0.0.1:8000/api/alljobs')
         .then((response) => {
-        
+ 
           this.jobs = response.data.jobs;
         })
         .catch((error) => {
@@ -61,7 +50,4 @@ export default {
   },
 };
 
-
 </script>
-
-
