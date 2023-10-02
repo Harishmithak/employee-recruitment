@@ -2,6 +2,7 @@
 <template>
   <div>
     <h1>Job Listings</h1>
+     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     <table>
       
       <thead>
@@ -21,17 +22,19 @@
             <button @click="showApplicationForm(job)">Apply Now</button>
         
             <div v-if="job.showForm">
+ 
           
               <form @submit.prevent="submitApplication(job)">
              
                 <input type="text" v-model="job.name" placeholder="Name" />
                 <input type="email" v-model="job.email" placeholder="Email" />
                 <input type="date" v-model="job.dob" placeholder="Date of Birth" />
-              
+       
                  <input type="hidden" :value="job.company_id" name="company_id" />
                  <input type="hidden" :value="job.id" name="job_id" /> 
-                <button type="submit">Submit Application</button>
+                <button type="submit">Save and move next</button>
               </form>
+        
             </div>
           </td>
         </tr>
@@ -40,13 +43,19 @@
   </div>
 </template>
 
+
+
+
+
 <script>
 import axios from 'axios';
+import store from '@/store'; 
 
 export default {
   data() {
     return {
       jobs: [],
+       
     };
   },
   mounted() {
@@ -55,7 +64,8 @@ export default {
   methods: {
     fetchJobs() {
       axios
-        .get('http://127.0.0.1:8000/api/alljobs')
+         .get(`${store.state.baseUrl}alljobs`)
+ 
         .then((response) => {
           this.jobs = response.data.jobs;
         
@@ -67,14 +77,20 @@ export default {
             // job.photo = '';
             // job.Resume = '';
           });
+           if (this.jobs.length === 0) {
+        
+          this.errorMessage = 'No records found.';
+        }
         })
         .catch((error) => {
           console.error('Error fetching job data:', error);
+             this.errorMessage = 'Failed to fetch job data. Please try again later.';
         });
     },
     showApplicationForm(job) {
     
       job.showForm = !job.showForm;
+      
     },
   submitApplication(job) {
   const formData = {
@@ -86,27 +102,38 @@ export default {
   };
 
   axios
-    .post('http://127.0.0.1:8000/api/apply', formData)
+    .post(`${store.state.baseUrl}apply`, formData)
     .then((response) => {
     
       if (response.status === 200) {
         console.log('Application submitted successfully', response);
+          const candidateId = response.data.candidate_id;
+
+                  
+                    this.$router.push({ name: 'academic', params: { candidate_id: candidateId , company_id: response.data.company_id,
+    job_id: response.data.job_id} });
       } else {
         
         console.error('Application submission failed with status code:', response.status);
       }
     })
     .catch((error) => {
-      if (error.response && error.response.status === 422) {
-
-        const validationErrors = error.response.data.errors;
-        console.error('Validation errors:', validationErrors);
-      
-      } else {
-        console.error('Error submitting application:', error);
-      }
+       console.error('Error submitting application:', error);
+    if (error.response) {
+      console.error('Response Data:', error.response.data);
+      console.error('Response Status:', error.response.status);
+    }
     });
+
 },
+
   },
 };
 </script>
+<style>
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+
+</style>

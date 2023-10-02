@@ -61,6 +61,22 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/jobs/UserjobView.vue')
   },
+  {
+    path: '/academic/:candidate_id/:company_id/:job_id',
+    name: 'academic',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/jobs/AcademicdetailView.vue')
+  },
+  {
+    path: '/experience/:candidate_id/:academic_id/:company_id/:job_id',
+    name: 'experience',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/jobs/ExperiencedetailView.vue')
+  },
 
 ]
 

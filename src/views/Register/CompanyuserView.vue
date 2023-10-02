@@ -1,16 +1,4 @@
-<!-- <template>
-  <form @submit.prevent="registerCompanyUser">
-    <label>Company Name:</label>
-    <input v-model="companyUser.company_name" type="text" required />
-    <label>Company Email:</label>
-    <input v-model="companyUser.company_email" type="email" required />
-    <label>Password:</label>
-    <input v-model="companyUser.company_password" type="password" required />
-    <label>Confirm Password:</label>
-    <input v-model="confirmPassword" type="password" required />
-    <button type="submit">Register</button>
-  </form>
-</template> -->
+
 <template>
   <form class="registration-form" @submit.prevent="registerCompanyUser">
     <div class="form-group">
@@ -22,7 +10,9 @@
         type="text"
         required
       />
+      <div v-if="!companyUser.company_name" class="error-message">Company Name is required.</div>
     </div>
+
     <div class="form-group">
       <label for="companyEmail">Company Email</label>
       <input
@@ -32,7 +22,9 @@
         type="email"
         required
       />
+      <div v-if="!isValidEmail(companyUser.company_email)" class="error-message">Please enter a valid email address.</div>
     </div>
+
     <div class="form-group">
       <label for="companyPassword">Password</label>
       <input
@@ -42,7 +34,9 @@
         type="password"
         required
       />
+      <div v-if="companyUser.company_password.length < 8" class="error-message">Password must be at least 8 characters long.</div>
     </div>
+
     <div class="form-group">
       <label for="confirmPassword">Confirm Password</label>
       <input
@@ -52,13 +46,17 @@
         type="password"
         required
       />
+      <div v-if="companyUser.company_password !== confirmPassword" class="error-message">Passwords do not match.</div>
     </div>
+
     <button class="btn btn-primary" type="submit">Register</button>
   </form>
 </template>
 
 <script>
 import axios from 'axios'; 
+import store from '@/store'; 
+
 export default {
   data() {
     return {
@@ -68,27 +66,59 @@ export default {
         company_password: '',
       },
       confirmPassword: '',
+       registrationAttempted: false,
     };
   },
   methods: {
-    registerCompanyUser() {
+    isValidEmail(email) {
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    },
+    validateForm() {
+      if (
+        !this.companyUser.company_name ||
+        !this.companyUser.company_email ||
+        !this.companyUser.company_password ||
+        !this.confirmPassword
+      ) {
+        return false;
+      }
+
+      if (!this.isValidEmail(this.companyUser.company_email)) {
+        return false;
+      }
+
+      if (this.companyUser.company_password.length < 8) {
+        return false;
+      }
+
       if (this.companyUser.company_password !== this.confirmPassword) {
-      
-        alert('Passwords do not match.');
+        return false;
+      }
+
+      return true;
+    },
+    registerCompanyUser() {
+      if (!this.validateForm()) {
         return;
       }
-      
-      axios.post('http://127.0.0.1:8000/api/companyusers', this.companyUser)
+
+      axios.post(`${store.state.baseUrl}companyusers`, this.companyUser)
         .then(response => {
-              console.log('Registration successful', response.data);
+          console.log('Registration successful', response.data);
+          this.$router.push({ path: '/' });
         })
         .catch(error => {
-           console.error('Registration error', error.response.data);
+          console.error('Registration error', error.response.data);
         });
     },
   },
 };
 </script>
+
+
+
 <style>
 .registration-form {
   max-width: 400px;
@@ -102,7 +132,10 @@ export default {
 .form-group {
   margin-bottom: 20px;
 }
-
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
 label {
   font-weight: bold;
   display: block;

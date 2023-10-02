@@ -1,4 +1,4 @@
-
+<!-- 
 <template>
   <div>
     <div v-if="!isLoggedIn">
@@ -52,7 +52,7 @@ export default {
        
         })
         .catch((error) => {
-       
+  
           console.error('Login error', error);
         });
     },
@@ -68,10 +68,98 @@ export default {
     },
   },
 };
+</script> -->
+
+
+
+<template>
+  <div>
+    <div v-if="!isLoggedIn">
+      <h2>Login</h2>
+      <form @submit.prevent="performLogin" class="login-form">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input id="email" v-model="email" type="email" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input id="password" v-model="password" type="password" class="form-control" required />
+        </div>
+        <!-- <div class="form-group">
+          <label for="usertype">User Type:</label>
+          <select id="usertype" v-model="usertype" class="form-control" required>
+            <option value="user">User</option>
+            <option value="company">Company</option>
+          </select>
+        </div> -->
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+
+    <!-- <div v-if="isLoggedIn">
+      <p>Welcome, {{ userEmail }}</p>
+      <button @click="performLogout" class="btn btn-secondary">Logout</button>
+    </div> -->
+  </div>
+</template>
+
+<script>
+import { mapState, mapActions } from 'vuex';
+
+
+export default {
+  computed: {
+    ...mapState(['isLoggedIn', 'userEmail']),
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+      //usertype: 'user', 
+    };
+  },
+  methods: {
+    ...mapActions(['performLogin', 'performLogout']),
+    performLogin() {
+      
+      if (!this.email || !this.password) {
+        console.error('Please fill in all fields.');
+        return;
+      }
+
+      const userData = {
+        email: this.email,
+        password: this.password,
+        // usertype: this.usertype,
+      };
+
+      this.$store.dispatch('performLogin', userData)
+        .then(() => {
+         
+        })
+        .catch((error) => {
+          console.error('Login error', error);
+        });
+    },
+    performLogout() {
+      this.$store.dispatch('logout')
+        .then(() => {
+      
+        })
+        .catch((error) => {
+          console.error('Logout error', error);
+        });
+    },
+  },
+};
 </script>
 
-
-
+<style scoped>
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+</style>
 
 
 
