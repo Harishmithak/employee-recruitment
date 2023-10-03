@@ -75,7 +75,7 @@ export default {
 <template>
   <div>
     <div v-if="!isLoggedIn">
-      <h2>Login</h2>
+      <h3>Login</h3>
       <form @submit.prevent="performLogin" class="login-form">
         <div class="form-group">
           <label for="email">Email:</label>
@@ -158,6 +158,41 @@ export default {
 .login-form {
   max-width: 400px;
   margin: 0 auto;
+}
+
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+   background-color: #4CAF50;
 }
 </style>
 

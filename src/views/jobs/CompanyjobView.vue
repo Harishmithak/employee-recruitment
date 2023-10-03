@@ -59,8 +59,7 @@
   :columnDefs="columnDefs"
   :pagination="true"
   :animateRows="true" 
-    :frameworkComponents="frameworkComponents"
-
+  :frameworkComponents="frameworkComponents"
 >
 
      <ag-grid-column headerName="Actions">
@@ -111,8 +110,8 @@ export default {
         { headerName: 'Basic Qualification', field: 'basic_qualification',sortable:true,filter:true },
         { headerName: 'Skills Required', field: 'skills_required',sortable:true,filter:true },
         { headerName: 'Application start date', field: 'application_start_date',sortable:true,filter:true },
-             { headerName: 'Application  End date', field: 'application_end_date' ,sortable:true,filter:true},
- 
+        { headerName: 'Application  End date', field: 'application_end_date' ,sortable:true,filter:true},
+        
         ]
           
     };

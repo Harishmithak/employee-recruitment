@@ -1,21 +1,13 @@
 <template>
   <div>
     <form @submit.prevent="submitForm">
-      <!-- Candidate Details -->
-      <!-- <label>Candidate ID:</label> -->
+<h2 style=color:green;font-family:sans-serif;>Academic details</h2>
  <input type="hidden" v-model="formData.candidate_id" name="candidate_id" />
 
       <input type="hidden" v-model="formData.company_id" name="company_id" />
       <input type="hidden" v-model="formData.job_id" name="job_id" /> 
 
-      <!-- Company Details -->
-      <!-- <label>Company ID:</label> -->
-      <!-- <input v-model="formData.company_id" type="number" required />
-
-      <label>Job ID:</label>
-      <input v-model="formData.job_id" type="number" required /> -->
-
-      <!-- Academic Details -->
+     
       <label>Qualification:</label>
       <input v-model="formData.Qualification" type="text" required />
 
@@ -52,7 +44,7 @@
       <label>Job Position:</label>
       <input v-model="formData.job_position" type="text" required />
 
-      <button type="submit">Submit</button>
+      <button type="submit">Submit and move</button>
     </form>
   </div>
 </template>
@@ -119,3 +111,53 @@ export default {
   },
 };
 </script>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  form {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+  p{
+     font-family: 'Arial', sans-serif;
+  }
+</style>
+
