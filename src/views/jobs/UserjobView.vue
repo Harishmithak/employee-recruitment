@@ -37,13 +37,15 @@
                 <input type="text" v-model="job.name" placeholder="Name" />
                 <input type="email" v-model="job.email" placeholder="Email" />
                 <input type="date" v-model="job.dob" placeholder="Date of Birth" />
-                 <!-- <input type="file" v-model="job.candidate_image" placeholder="candidate_image" />
-                <input type="file" v-model="job.resume" placeholder="resume" /> -->
-               <!-- <input type="file" @change="job.candidate_image = $event.target.files[0]" placeholder="candidate_image" />
-                <input type="file" @change="job.resume = $event.target.files[0]" placeholder="resume" /> -->
-            <input type="file" name="candidate_image" v-on:change="onImageChange(job, $event)">
-    <input type="file" name="signature_image" v-on:change="onImageChanges(job, $event)">
-      <input type="file" name="resume" v-on:change="onResumeChanges(job, $event)">
+
+                <label for="candidate_image">Candidate Image:</label>
+                <input type="file" name="candidate_image" v-on:change="onImageChange(job, $event)" id="candidate_image" />
+
+                <label for="signature_image">Signature Image:</label>
+                <input type="file" name="signature_image" v-on:change="onImageChanges(job, $event)" id="signature_image" />
+
+                <label for="resume">Resume:</label>
+                <input type="file" name="resume" v-on:change="onResumeChanges(job, $event)" id="resume" />
                  <input type="hidden" :value="job.company_id" name="company_id" />
                  <input type="hidden" :value="job.id" name="job_id" /> 
                 <button type="submit">Save and move next</button>
@@ -219,8 +221,6 @@ export default {
     cursor: pointer;
     border-radius: 4px;
   }
-
-
   form {
     margin-top: 10px;
   }

@@ -21,10 +21,7 @@ export default createStore({
       state.userEmail = userEmail;
     },
    
-    // SET_USER_TYPE(state, usertype) {
-    //   console.log('Setting usertype:', usertype);
-    //   state.usertype = usertype;
-    // },
+  
   },
   actions: {
     performLogin({ commit }, userData) {
@@ -36,12 +33,11 @@ export default createStore({
           alert('login successfull');
           commit('SET_IS_LOGGED_IN', true);
           commit('SET_USER_EMAIL', userData.email);
-         
-          // commit('SET_USER_TYPE', userData.usertype);
+
         })
         .catch((error) => {
 
-         // alert('Invalid credentials');
+
 
             if (error.response.status === 422) {
               
@@ -59,10 +55,7 @@ export default createStore({
       commit('SET_IS_LOGGED_IN', false);
       commit('SET_USER_EMAIL', '');
     //  commit('SET_USER_TYPE', '');
-  
     },
-
-      
   },
 });
 
