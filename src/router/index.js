@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import store from '@/store'; 
 
 const routes = [
   {
@@ -11,27 +12,21 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+
+    component: () => import('../views/AboutView.vue')
   },
   {
     path: '/companyuser',
     name: 'companyuser',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Register/CompanyuserView.vue')
+    
+    component: () => import( '../views/Register/CompanyuserView.vue')
 
   },
   {
     path: '/login',
     name: 'login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/login/LoginView.vue')
+
+    component: () => import( '../views/login/LoginView.vue')
   },
   {
     path: '/user',
@@ -48,42 +43,36 @@ const routes = [
   {
     path: '/companyjob',
     name: 'companyjob',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/jobs/CompanyjobView.vue')
+
+    component: () => import('../views/jobs/CompanyjobView.vue')
   },
+
   {
     path: '/userjob',
     name: 'userjob',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/jobs/UserjobView.vue')
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLoggedIn) {
+        next();
+      } else {
+        next('/login');
+      }
+    },
+    component: () => import( '../views/jobs/UserjobView.vue')
   },
   {
     path: '/academic/:candidate_id/:company_id/:job_id',
     name: 'academic',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/jobs/AcademicdetailView.vue')
+    component: () => import( '../views/jobs/AcademicdetailView.vue')
   },
   {
     path: '/experience/:candidate_id/:academic_id/:company_id/:job_id',
     name: 'experience',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/jobs/ExperiencedetailView.vue')
+    component: () => import( '../views/jobs/ExperiencedetailView.vue')
   },
   {
     path: '/display',
     name: 'display',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/jobs/DisplayView.vue')
+    component: () => import( '../views/jobs/DisplayView.vue')
   },
 
 ]

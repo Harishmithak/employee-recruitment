@@ -7,7 +7,6 @@
       <input type="hidden" v-model="formData.company_id" name="company_id" />
       <input type="hidden" v-model="formData.job_id" name="job_id" />
 
-      
       <label>Year of Experience:</label>
       <input v-model="formData.year_of_experience" type="number" required />
 
@@ -25,6 +24,7 @@
 <script>
 import axios from 'axios';
 import store from '@/store';
+import Swal from 'sweetalert2';
 
 export default {
   data() {
@@ -49,13 +49,19 @@ export default {
   },
   methods: {
     submitForm() {
-   
       axios
         .post(`${store.state.baseUrl}experiencedetail`, this.formData)
         .then(response => {
+           Swal.fire({
+            icon: 'success',
+            title: 'Application submitted ',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000, 
+          });
           console.log(response.data);
-       this.$router.push('/');
-          
+       this.$router.push('/');   
         })
         .catch(error => {
           console.error('Error submitting form:', error);

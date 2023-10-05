@@ -117,8 +117,6 @@ import { AgGridVue } from "ag-grid-vue3";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import store from "@/store";
-// import { AgGridVue} from 'ag-grid-vue3';
-// import { AgGridVue} from 'ag-grid-vue3';
 export default {
   components: {
     AgGridVue,

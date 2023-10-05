@@ -3,6 +3,7 @@
   <div>
     <h1>Jobs</h1>
      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <div class="table-container">
     <table>
       
       <thead>
@@ -56,6 +57,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>
 
@@ -129,7 +131,7 @@ export default {
       formData.append('dob', job.dob);
       formData.append('candidate_image', this.formData.candidate_image);
        formData.append('signature_image', this.formData.signature_image);
-         formData.append('resume', this.formData.resume);
+       formData.append('resume', this.formData.resume);
 
       axios
         .post(`${store.state.baseUrl}apply`, formData, {
@@ -164,9 +166,6 @@ export default {
   },
 };
 </script>
-
-
-
 
 <style>
 .error-message {

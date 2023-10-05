@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div v-if="!isLoggedIn">
@@ -5,11 +6,11 @@
       <form @submit.prevent="performLogin" class="login-form">
         <div class="form-group">
           <label for="email">Email:</label>
-          <input id="email" v-model="email" type="email" class="form-control" required />
+          <input v-model="email" type="email" class="form-control" required />
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input id="password" v-model="password" type="password" class="form-control" required />
+          <input v-model="password" type="password" class="form-control" required />
         </div>
         <button type="submit" class="custom-btn btn-10">Login</button>
       </form>
@@ -18,56 +19,47 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+// import Swal from 'sweetalert2';
 
 
 export default {
-  computed: {
-    ...mapState(['isLoggedIn', 'userEmail']),
-  },
-  data() {
-    return {
-      email: '',
-      password: '',
-      //usertype: 'user', 
-    };
-  },
-  methods: {
-    ...mapActions(['performLogin', 'performLogout']),
-    performLogin() {
-      
-      if (!this.email || !this.password) {
+  setup() {
+    const store = useStore();
+
+    const isLoggedIn = store.state.isLoggedIn;
+    const email = ref('');
+    const password = ref('');
+
+    const performLogin = () => {
+      if (!email.value || !password.value) {
         console.error('Please fill in all fields.');
         return;
       }
 
       const userData = {
-        email: this.email,
-        password: this.password,
-        // usertype: this.usertype,
+        email: email.value,
+        password: password.value,
       };
-
-      this.$store.dispatch('performLogin', userData)
+      store.dispatch('performLogin', userData)
         .then(() => {
-         
+           
         })
         .catch((error) => {
           console.error('Login error', error);
         });
-    },
-    performLogout() {
-      this.$store.dispatch('logout')
-        .then(() => {
-      
-        })
-        .catch((error) => {
-          console.error('Logout error', error);
-        });
-    },
+    };
+
+    return {
+      isLoggedIn,
+      email,
+      password,
+      performLogin,
+    };
   },
 };
-</script> 
-
+</script>
 <style scoped>
 .login-form {
   max-width: 400px;
