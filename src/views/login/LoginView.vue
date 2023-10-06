@@ -2,7 +2,7 @@
 <template>
   <div>
     <div v-if="!isLoggedIn">
-      <h3>Login</h3>
+      <h4> LOGIN</h4>
       <form @submit.prevent="performLogin" class="login-form">
         <div class="form-group">
           <label for="email">Email:</label>
@@ -44,7 +44,7 @@ export default {
       };
       store.dispatch('performLogin', userData)
         .then(() => {
-           
+         
         })
         .catch((error) => {
           console.error('Login error', error);
@@ -61,14 +61,14 @@ export default {
 };
 </script>
 <style scoped>
-.login-form {
-  max-width: 400px;
-  margin: 0 auto;
-}
 
 .login-form {
   max-width: 400px;
   margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {

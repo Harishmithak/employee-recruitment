@@ -3,8 +3,9 @@
   <div>
     <h1>Jobs</h1>
      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-      <div class="table-container">
-    <table>
+<div class="table-container">
+      <div class="table-responsive">
+    <table class="table">
       
       <thead>
         <tr>
@@ -35,18 +36,18 @@
           
            <form @submit.prevent="submitApplication(job)" enctype="multipart/form-data">
              
-                <input type="text" v-model="job.name" placeholder="Name" />
-                <input type="email" v-model="job.email" placeholder="Email" />
-                <input type="date" v-model="job.dob" placeholder="Date of Birth" />
+                <input type="text" v-model="job.name" placeholder="Name" required/>
+                <input type="email" v-model="job.email" placeholder="Email" required/>
+                <input type="date" v-model="job.dob" placeholder="Date of Birth" required />
 
                 <label for="candidate_image">Candidate Image:</label>
-                <input type="file" name="candidate_image" v-on:change="onImageChange(job, $event)" id="candidate_image" />
+                <input type="file" name="candidate_image" v-on:change="onImageChange(job, $event)" id="candidate_image" required />
 
                 <label for="signature_image">Signature Image:</label>
-                <input type="file" name="signature_image" v-on:change="onImageChanges(job, $event)" id="signature_image" />
+                <input type="file" name="signature_image" v-on:change="onImageChanges(job, $event)" id="signature_image" required />
 
                 <label for="resume">Resume:</label>
-                <input type="file" name="resume" v-on:change="onResumeChanges(job, $event)" id="resume" />
+                <input type="file" name="resume" v-on:change="onResumeChanges(job, $event)" id="resume" required/>
                  <input type="hidden" :value="job.company_id" name="company_id" />
                  <input type="hidden" :value="job.id" name="job_id" /> 
                 <button type="submit">Save and move next</button>
@@ -58,12 +59,15 @@
       </tbody>
     </table>
     </div>
+
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import store from '@/store'; 
+import Swal from 'sweetalert2';
 
 export default {
   data() {
@@ -160,6 +164,11 @@ export default {
           if (error.response) {
             console.error('Response Data:', error.response.data);
             console.error('Response Status:', error.response.status);
+             Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Failed to submit application. Please try again.',
+    });
           }
         });
     },
@@ -195,13 +204,13 @@ export default {
     margin-top: 20px;
   }
 
-  th, td {
+ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-  }
+  } 
 
-  th {
+  div.th {
     background-color: #4CAF50;
     color: white;
   }

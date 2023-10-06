@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import store from '@/store'; 
+import NotFoundComponent from '../views/NotFound.vue';
 
 const routes = [
   {
@@ -31,10 +32,6 @@ const routes = [
   {
     path: '/user',
     name: 'user',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import(/* webpackChunkName: "about" */ '../views/Register/UserView.vue')
     beforeEnter: (to, from, next) => {
       window.location.href = 'http://127.0.0.1:8000/api/register';
       next(false);
@@ -74,6 +71,8 @@ const routes = [
     name: 'display',
     component: () => import( '../views/jobs/DisplayView.vue')
   },
+  { path: '/:pathMatch(.*)*', component: NotFoundComponent }
+ 
 
 ]
 

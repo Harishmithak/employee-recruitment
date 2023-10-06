@@ -4,11 +4,12 @@
     @click="openJobCreationModal"
     class="btn btn-success ms-auto"
     data-toggle="modal"
-    data-target="#createJobModal">
+    data-target="#createJobModal"
+  >
     Create Job <i class="fa-solid fa-plus"></i>
   </button>
   <div>
-    <h1> </h1>
+    <h1></h1>
     <div
       class="modal fade"
       id="createJobModal"
@@ -97,7 +98,7 @@
       </div>
     </div>
 
-    <ag-grid-vue
+    <!-- <ag-grid-vue
       style="width: 100%; height: 300px"
       class="ag-theme-alpine"
       :rowData="jobs"
@@ -105,21 +106,59 @@
       :pagination="true"
       :animateRows="true"
       :frameworkComponents="frameworkComponents"
+       
     >
-    </ag-grid-vue>
+    </ag-grid-vue> -->
+    <div class="table-responsive">
+        <table id="jobsTable" class="table">
+        <thead>
+          <tr>
+            <th>Company Name</th>
+            <th>Job Position</th>
+            <th>Job Description</th>
+            <th>Basic Qualification</th>
+            <th>Skills Required</th>
+            <th>Application Start Date</th>
+            <th>Application End Date</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="job in jobs" :key="job.id">
+            <td>{{ job.company_name }}</td>
+            <td>{{ job.job_position }}</td>
+            <td>{{ job.job_description }}</td>
+            <td>{{ job.basic_qualification }}</td>
+            <td>{{ job.skills_required }}</td>
+            <td>{{ job.application_start_date }}</td>
+            <td>{{ job.application_end_date }}</td>
+            <td>
+              <a href="#" class="btn btn-danger" @click.prevent="handleDeleteClick(job.id)">
+                Delete
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-import { AgGridVue } from "ag-grid-vue3";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+// import $ from "jquery";
+// import "datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+// import "datatables.net-bs4/js/dataTables.bootstrap4.min";
+// import { AgGridVue } from "ag-grid-vue3";
+// import "ag-grid-community/styles/ag-grid.css";
+// import "ag-grid-community/styles/ag-theme-alpine.css";
+
 import store from "@/store";
+
 export default {
   components: {
-    AgGridVue,
+    // AgGridVue,
   },
   computed: {
     ...mapState(["userEmail"]),
@@ -136,61 +175,103 @@ export default {
         application_end_date: "",
       },
 
-      frameworkComponents: {
-        agGridColumn: AgGridVue.AgGridColumn,
-      },
-      columnDefs: [
-        {
-          headerName: "Company Name",
-          field: "company_name",
-          sortable: true,
-          filter: true,
-        },
-        {
-          headerName: "Job Position",
-          field: "job_position",
-          sortable: true,
-          filter: true,
-        },
-        {
-          headerName: "Job Description",
-          field: "job_description",
-          sortable: true,
-          filter: true,
-        },
-        {
-          headerName: "Basic Qualification",
-          field: "basic_qualification",
-          sortable: true,
-          filter: true,
-        },
-        {
-          headerName: "Skills Required",
-          field: "skills_required",
-          sortable: true,
-          filter: true,
-        },
-        {
-          headerName: "Application start date",
-          field: "application_start_date",
-          sortable: true,
-          filter: true,
-        },
-        {
-          headerName: "Application  End date",
-          field: "application_end_date",
-          sortable: true,
-          filter: true,
-        },
-        { headerName: "Delete", field: "id", sortable: false, filter: false },
-      ],
+      // frameworkComponents: {
+      //   agGridColumn: AgGridVue.AgGridColumn,
+      // },
+
+//       columnDefs: [
+//         {
+//           headerName: "Company Name",
+//           field: "company_name",
+//           sortable: true,
+//           filter: true,
+//         },
+//         {
+//           headerName: "Job Position",
+//           field: "job_position",
+//           sortable: true,
+//           filter: true,
+//         },
+//         {
+//           headerName: "Job Description",
+//           field: "job_description",
+//           sortable: true,
+//           filter: true,
+//         },
+//         {
+//           headerName: "Basic Qualification",
+//           field: "basic_qualification",
+//           sortable: true,
+//           filter: true,
+//         },
+//         {
+//           headerName: "Skills Required",
+//           field: "skills_required",
+//           sortable: true,
+//           filter: true,
+//         },
+//         {
+//           headerName: "Application start date",
+//           field: "application_start_date",
+//           sortable: true,
+//           filter: true,
+//         },
+//         {
+//           headerName: "Application  End date",
+//           field: "application_end_date",
+//           sortable: true,
+//           filter: true,
+//         },
+//         {
+//   headerName: "Delete",
+//    field: "id",
+//   sortable: false,
+//   filter: false,
+// cellRenderer: function (params) {
+//     return `<a href="#" class="btn btn-danger" @click.prevent="handleDeleteClick(${params.data.id})">Delete</a>`;
+//   },
+// },
+
+      
+//       ],
     };
   },
   mounted() {
     this.fetchJobs();
+  //     this.$nextTick(() => {
+  //   this.initDataTable();
+  // });
   },
 
   methods: {
+//     initDataTable() {
+//   const jobsTable = $("#jobsTable");
+//   if ($.fn.DataTable.isDataTable(jobsTable)) {
+//     jobsTable.DataTable().destroy();
+//   }
+
+//   jobsTable.DataTable({
+//     paging: true,
+//     searching: true,
+//     lengthChange: true,
+//     pageLength: 2,
+//     // ... other DataTables options ...
+//   });
+// },
+    
+     handleDeleteClick(jobId) {
+       console.log("Deleting job with ID:", jobId);
+
+    axios
+      .delete(`${store.state.baseUrl}jobs/${jobId}`)
+      .then(() => {
+       
+        
+      })
+      .catch((error) => {
+        console.error("Error deleting job:", error);
+      });
+  },
     fetchJobs() {
       const loggedInEmail = this.userEmail;
       axios
@@ -221,8 +302,8 @@ export default {
           status: this.newJob.status || "default_status",
         })
         .then((response) => {
+          console.log(this.jobs);
           this.jobs.push(response.data.job);
-
           this.newJob.job_position = "";
           this.newJob.job_description = "";
           this.newJob.basic_qualification = "";
@@ -240,8 +321,13 @@ export default {
 </script>
 
 <style>
+@import "datatables.net-bs4/css/dataTables.bootstrap4.min.css";
 .btn-success {
   width: 10%;
   margin-left: 200px;
 }
 </style>
+
+
+
+

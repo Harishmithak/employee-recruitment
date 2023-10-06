@@ -115,7 +115,7 @@
 </template>
 
 <style>
-@media (min-width: 768px) {
+ @media (min-width: 768px) {
   .navbar-brand.abs {
     position: absolute;
     width: auto;
@@ -123,7 +123,7 @@
     transform: translateX(-50%);
     text-align: center;
   }
-}
+} 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -137,18 +137,18 @@
 }
 
 .dropdown-item {
-  color: #fec100 !important;
+  color:#b6ccd8 !important;
 }
 
 #nav {
-  background-color: #363c4e;
+  background-color: #00668c;
 }
 #mob-logo {
   margin-left: -2em;
 }
 .menu-item {
   border-radius: 20px;
-  color: #fec100 !important;
+  color:#b6ccd8!important;
 }
 #welcome {
   color: white;
@@ -161,7 +161,7 @@
 
 a {
   text-decoration: none;
-  color: #fec100;
+  color: #b6ccd8;
 }
 a:hover {
   color: black !important;
@@ -172,6 +172,52 @@ a:hover {
     width: 60px;
   }
 }
+@media (max-width: 991px) {
+  .navbar-collapse {
+    text-align: center;
+  }
+
+  .navbar-nav {
+    margin-top: 10px;
+  }
+
+  .menu-item {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 8px 0;
+  }
+
+  .navbar-toggler {
+    margin-top: 10px;
+  }
+
+  .navbar-brand,
+  .navbar-brand-two {
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-toggler {
+    margin-top: 10px;
+  }
+
+  .menu-item {
+     display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  #mob-logo {
+    margin-left: auto;
+  }
+}
+
+
+
 </style>
 
 <script>
@@ -183,19 +229,17 @@ export default {
     isCompanyUser() {
       return this.userType.trim().toLowerCase() === "company";
     },
-    isNormalUser() {
-      return this.userType.trim().toLowerCase() === "user";
-    },
+   
   },
   data() {
     return {
       email: "",
       password: "",
-      //  userType: '',
+      //userType: '',
     };
   },
   mounted() {
-    // Log userType to the console for debugging
+   
     console.log("userType:", this.userType);
   },
   methods: {

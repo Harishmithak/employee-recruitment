@@ -63,6 +63,7 @@
 <script>
 import axios from "axios";
 import store from "@/store";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -121,6 +122,11 @@ export default {
           console.error("Error submitting form:", error);
           console.log("Response Status:", error.response.status);
           console.log("Response Data:", error.response.data);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to submit the form. Please try again.",
+          });
         });
     },
   },

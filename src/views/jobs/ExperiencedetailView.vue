@@ -67,6 +67,11 @@ export default {
           console.error('Error submitting form:', error);
           console.log('Response Status:', error.response.status);
           console.log('Response Data:', error.response.data);
+           Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: 'Failed to submit the form. Please try again.',
+  });
         });
     },
   },
