@@ -51,7 +51,6 @@ body{
 
 <script>
 import $ from 'jquery';
-
 export default {
   mounted() {
 

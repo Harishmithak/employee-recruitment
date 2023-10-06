@@ -48,7 +48,6 @@
       />
       <div v-if="companyUser.company_password !== confirmPassword" class="error-message">Passwords do not match.</div>
     </div>
-
     <button class="btn btn-primary" type="submit">Register</button>
   </form>
 </template>

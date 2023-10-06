@@ -8,25 +8,21 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
-   
   },
   {
     path: '/about',
     name: 'about',
-
     component: () => import('../views/AboutView.vue')
   },
   {
     path: '/companyuser',
     name: 'companyuser',
-    
     component: () => import( '../views/Register/CompanyuserView.vue')
 
   },
   {
     path: '/login',
     name: 'login',
-
     component: () => import( '../views/login/LoginView.vue')
   },
   {
@@ -40,7 +36,6 @@ const routes = [
   {
     path: '/companyjob',
     name: 'companyjob',
-
     component: () => import('../views/jobs/CompanyjobView.vue')
   },
 
@@ -67,15 +62,17 @@ const routes = [
     component: () => import( '../views/jobs/ExperiencedetailView.vue')
   },
   {
+    path: '/alljobs',
+    name: 'alljobs',
+    component: () => import( '../views/jobs/AlljobsView.vue')
+  },
+  {
     path: '/display',
     name: 'display',
     component: () => import( '../views/jobs/DisplayView.vue')
   },
   { path: '/:pathMatch(.*)*', component: NotFoundComponent }
- 
-
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes

@@ -6,16 +6,12 @@
       <input type="hidden" v-model="formData.academic_id" name="academic_id" />
       <input type="hidden" v-model="formData.company_id" name="company_id" />
       <input type="hidden" v-model="formData.job_id" name="job_id" />
-
       <label>Year of Experience:</label>
       <input v-model="formData.year_of_experience" type="number" required />
-
       <label>Previous Company Name:</label>
       <input v-model="formData.previous_company_name" type="text" required />
-
       <label>Previous Job Position:</label>
       <input v-model="formData.previous_job_position" type="text" required />
-
       <button type="submit">Submit</button>
     </form>
   </div>

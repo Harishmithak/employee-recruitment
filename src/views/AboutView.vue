@@ -15,6 +15,7 @@
         Thank you for choosing ProfessionalConnect as your preferred platform for professional networking,
         and we look forward to being a part of your journey to success.
       </p>
+       <button type="submit" class="btn btn-primary"><router-link to="/alljobs">View All Jobs</router-link></button>
     </div>
   </div>
 </template>

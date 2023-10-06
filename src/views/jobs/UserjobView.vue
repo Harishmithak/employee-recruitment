@@ -5,8 +5,7 @@
      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
 <div class="table-container">
       <div class="table-responsive">
-    <table class="table">
-      
+    <table class="table"> 
       <thead>
         <tr>
           <th>Company Name</th>
@@ -30,36 +29,27 @@
           <td>{{ job.application_end_date}}</td>
           <td>
             <button @click="showApplicationForm(job)">Apply Now</button>
-        
             <div v-if="job.showForm">
- 
-          
            <form @submit.prevent="submitApplication(job)" enctype="multipart/form-data">
-             
                 <input type="text" v-model="job.name" placeholder="Name" required/>
                 <input type="email" v-model="job.email" placeholder="Email" required/>
                 <input type="date" v-model="job.dob" placeholder="Date of Birth" required />
-
                 <label for="candidate_image">Candidate Image:</label>
                 <input type="file" name="candidate_image" v-on:change="onImageChange(job, $event)" id="candidate_image" required />
-
                 <label for="signature_image">Signature Image:</label>
                 <input type="file" name="signature_image" v-on:change="onImageChanges(job, $event)" id="signature_image" required />
-
                 <label for="resume">Resume:</label>
                 <input type="file" name="resume" v-on:change="onResumeChanges(job, $event)" id="resume" required/>
                  <input type="hidden" :value="job.company_id" name="company_id" />
                  <input type="hidden" :value="job.id" name="job_id" /> 
                 <button type="submit">Save and move next</button>
               </form>
-        
             </div>
           </td>
         </tr>
       </tbody>
     </table>
     </div>
-
     </div>
   </div>
 </template>
@@ -68,7 +58,6 @@
 import axios from 'axios';
 import store from '@/store'; 
 import Swal from 'sweetalert2';
-
 export default {
   data() {
     return {
@@ -90,15 +79,12 @@ export default {
   },
   methods: {
     onImageChange(job, e) {
-      this.formData.candidate_image = e.target.files[0];
-          
+      this.formData.candidate_image = e.target.files[0];   
     },
       onImageChanges(job, e) {
-
           this.formData.signature_image = e.target.files[0];
     },
           onResumeChanges(job, e) {
-
           this.formData.resume = e.target.files[0];
     },
     fetchJobs() {
@@ -111,7 +97,6 @@ export default {
             job.name = '';
             job.email = '';
             job.dob = '';
-          
           });
           if (this.jobs.length === 0) {
             this.errorMessage = 'No records found.';
@@ -126,7 +111,6 @@ export default {
       job.showForm = !job.showForm;
     },
     submitApplication(job) {
-
       const formData = new FormData();
       formData.append('company_id', job.company_id);
       formData.append('job_id', job.id);
@@ -136,7 +120,6 @@ export default {
       formData.append('candidate_image', this.formData.candidate_image);
        formData.append('signature_image', this.formData.signature_image);
        formData.append('resume', this.formData.resume);
-
       axios
         .post(`${store.state.baseUrl}apply`, formData, {
           headers: {
@@ -181,41 +164,31 @@ export default {
   color: red;
   margin-top: 5px;
 }
-
-
   body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
   }
-
-
   .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
   }
-
-
   table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
-
  th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
   } 
-
   div.th {
     background-color: #4CAF50;
     color: white;
   }
-
-
   button {
     background-color: #4CAF50;
     color: white;
@@ -232,19 +205,15 @@ export default {
   form {
     margin-top: 10px;
   }
-
   input {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
     box-sizing: border-box;
   }
-
   input[type="hidden"] {
     display: none;
   }
-
-
   button[type="submit"] {
     background-color: #4CAF50;
     color: white;
@@ -253,11 +222,9 @@ export default {
     border-radius: 4px;
     cursor: pointer;
   }
-
   button[type="submit"]:hover {
     background-color: #45a049;
   }
-
   .error-message {
     color: red;
     margin-top: 5px;

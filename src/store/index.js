@@ -29,7 +29,6 @@ export default createStore({
         .post(`${store.state.baseUrl}login`, userData)
         .then((response) => {
           if (response.status === 200 && response.data.success) {
-            // Assuming your API returns a 'success' key in the response data for successful logins
             Swal.fire({
               icon: 'success',
               title: 'Login Successful',

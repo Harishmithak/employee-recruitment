@@ -1,66 +1,4 @@
-<!-- 
-<template>
-  <div>
-    <h1>Candidate Details</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Company ID</th>
-          <th>Job ID</th>  
-          <th>Name</th>
-          <th>Email</th>
-          <th>Date of Birth</th>
-          <th>Candidate Image</th>
-          <th>Signature Image</th>
-          <th>Resume</th>
-          <th>Qualification</th>
-          <th>College Name</th>
-          <th>Year of Passing (College)</th>
-          <th>Percentage (College)</th>
-          <th>Skills</th>
-          <th>Job Position</th>
-            <th>Years of Experience</th>
-          <th>Previous Company</th>
-          <th>Previous Job Position</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="detail in details" :key="detail.id">
-          <td>{{ detail.id }}</td>
-            <td>{{ detail.company_id }}</td>
-          <td>{{ detail.job_id }}</td>
-          <td>{{ detail.name }}</td>
-          <td>{{ detail.email }}</td>
-          <td>{{ detail.dob }}</td>
-          <td>
-            <img :src="getImageUrl(detail.candidate_image)" :alt="`Candidate Image`" />
-          </td>
-          <td>
-            <img :src="getImageUrls(detail.signature_image)" :alt="`Signature Image`" />
-          </td>
-          <td>
-            <a :href="getResumeUrls(detail.resume)" target="_blank">View Resume</a>
-          </td>
-          <td>{{ detail.academicDetails ? detail.academicDetails.Qualification : '' }}</td>
-          <td>{{ detail.academicDetails ? detail.academicDetails.college_name : '' }}</td>
-          <td>{{ detail.academicDetails ? detail.academicDetails.year_of_passing_college : '' }}</td>
-          <td>{{ detail.academicDetails ? detail.academicDetails.percentage_college : '' }}</td>
-          <td>{{ detail.academicDetails ? detail.academicDetails.skills : '' }}</td>
-          <td>{{ detail.academicDetails ? detail.academicDetails.job_position : '' }}</td>
-          <td>{{ detail.experienceDetails ? detail.experienceDetails.year_of_experience : '' }}</td>
-          <td>{{ detail.experienceDetails ? detail.experienceDetails.previous_company_name : '' }}</td>
-          <td>{{ detail.experienceDetails ? detail.experienceDetails.previous_job_position : '' }}</td>
-          <td>
-         
-        <button  @click="sendEmail(detail.email)" >sortlisted</button>
-        </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</template> -->
+
 <template>
   <div>
     <h1>Candidate Details</h1>
@@ -72,7 +10,6 @@
           <th>Name</th>
           <th>Email</th>
           <th>Date of Birth</th>
-    
           <th>Candidate Image</th>
           <th>Signature Image</th>
           <th>Resume</th>
@@ -384,13 +321,8 @@ export default {
     max-width: 100px;
     max-height: 100px;
   }
-
-
   a {
     text-decoration: none;
    
   }
-
-
-
 </style>

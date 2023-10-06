@@ -22,22 +22,17 @@
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 // import Swal from 'sweetalert2';
-
-
 export default {
   setup() {
     const store = useStore();
-
     const isLoggedIn = store.state.isLoggedIn;
     const email = ref('');
     const password = ref('');
-
     const performLogin = () => {
       if (!email.value || !password.value) {
         console.error('Please fill in all fields.');
         return;
       }
-
       const userData = {
         email: email.value,
         password: password.value,
@@ -50,7 +45,6 @@ export default {
           console.error('Login error', error);
         });
     };
-
     return {
       isLoggedIn,
       email,
@@ -87,7 +81,6 @@ input {
   margin-bottom: 8px;
   box-sizing: border-box;
 }
-
 button {
   background-color: #4CAF50;
   color: #fff;
